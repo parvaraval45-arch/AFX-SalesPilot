@@ -1,0 +1,157 @@
+[
+  {
+    "id": "pure-storage",
+    "name": "Pure Storage",
+    "products": ["FlashArray//X", "FlashArray//C", "FlashArray//XL", "FlashBlade", "FlashBlade//S"],
+    "strengths": [
+      "Evergreen subscription model with strong customer loyalty",
+      "Simple, intuitive management UI (Pure1)",
+      "DirectFlash technology eliminates SSD overhead",
+      "Strong brand recognition in all-flash market"
+    ],
+    "weaknesses": [
+      "No hybrid (HDD+SSD) offering — all-flash only",
+      "Limited multi-protocol support vs ONTAP unified architecture",
+      "No native object storage solution",
+      "Weaker in file services and NAS workloads",
+      "Higher cost per effective TB when data reduction is average"
+    ],
+    "netappAdvantages": [
+      "ONTAP unified storage supports block, file, AND object in one platform",
+      "Superior hybrid cloud story with CVO, ANF, and FSx for ONTAP",
+      "Better data efficiency with inline compression, dedup, and compaction",
+      "Proven scale-out to 24 nodes vs Pure's limited clustering",
+      "Broader protocol support including NVMe/TCP and S3"
+    ],
+    "battleCardPoints": [
+      "Ask: 'How do you handle file workloads alongside block?' — Pure has no unified answer",
+      "Highlight: NetApp's cloud integration is native, not bolt-on",
+      "Counter Evergreen: NetApp offers comparable upgrade programs PLUS hybrid cloud mobility",
+      "Data gravity: NetApp moves data seamlessly between on-prem and any cloud"
+    ]
+  },
+  {
+    "id": "dell-emc",
+    "name": "Dell EMC",
+    "products": ["PowerStore", "PowerScale (Isilon)", "PowerFlex", "Unity XT", "ECS"],
+    "strengths": [
+      "Massive installed base and channel partner network",
+      "Broad portfolio covering all storage segments",
+      "Strong in HPC/scale-out NAS with PowerScale",
+      "Bundling advantage with Dell servers and networking"
+    ],
+    "weaknesses": [
+      "Fragmented portfolio — multiple OS/platforms to manage",
+      "No unified data management across arrays (unlike ONTAP)",
+      "Cloud strategy is complex with multiple disconnected offerings",
+      "PowerStore still maturing vs established ONTAP feature set",
+      "Storage efficiency features lag behind NetApp"
+    ],
+    "netappAdvantages": [
+      "Single ONTAP OS across all-flash, hybrid, and cloud — one skillset",
+      "Superior cloud integration: native in AWS, Azure, GCP",
+      "Better data reduction ratios with guaranteed storage efficiency",
+      "Simpler operations: one management plane vs Dell's fragmented tools",
+      "Non-disruptive operations and proven 99.9999% availability"
+    ],
+    "battleCardPoints": [
+      "Ask: 'How many different storage operating systems does Dell require you to manage?'",
+      "Highlight: NetApp ONTAP runs the same everywhere — on-prem to any cloud",
+      "Counter bundling: Total cost of ownership favors NetApp when factoring data efficiency",
+      "Migration: ONTAP's data mobility means no lock-in — data moves freely"
+    ]
+  },
+  {
+    "id": "hpe",
+    "name": "HPE (Hewlett Packard Enterprise)",
+    "products": ["Alletra 5000", "Alletra 6000", "Alletra 9000", "Alletra MP"],
+    "strengths": [
+      "GreenLake consumption model with strong enterprise adoption",
+      "Alletra MP converges block and file",
+      "Strong services organization and global support",
+      "HPE InfoSight AI-driven operations"
+    ],
+    "weaknesses": [
+      "Alletra portfolio still consolidating from Nimble/3PAR/Primera heritage",
+      "Cloud storage strategy lags significantly behind NetApp",
+      "Limited scale-out NAS capabilities",
+      "No object storage offering",
+      "Weaker data reduction compared to NetApp"
+    ],
+    "netappAdvantages": [
+      "Mature, unified ONTAP platform vs HPE's transitioning portfolio",
+      "Far superior hybrid cloud integration with native cloud services",
+      "Better scale-out capabilities for both NAS and SAN",
+      "Proven data management features with decades of ONTAP innovation",
+      "Object storage with StorageGRID — HPE has no equivalent"
+    ],
+    "battleCardPoints": [
+      "Ask: 'What's your cloud data mobility story?' — HPE struggles here",
+      "Highlight: ONTAP is one proven OS, not a rebadged collection of acquisitions",
+      "Counter GreenLake: NetApp Keystone flex-sub offers similar economics with better tech",
+      "Scale: NetApp scales to 24 nodes seamlessly; HPE clustering is limited"
+    ]
+  },
+  {
+    "id": "vast-data",
+    "name": "VAST Data",
+    "products": ["VAST Data Platform", "VAST InsightEngine"],
+    "strengths": [
+      "Purpose-built for AI/ML and deep learning workloads",
+      "NFS/S3 multiprotocol on single namespace",
+      "QLC flash economics with NVMe performance",
+      "Simple, single-tier architecture"
+    ],
+    "weaknesses": [
+      "Startup with limited enterprise track record",
+      "No block storage (SAN) support",
+      "No hybrid cloud or cloud-native offerings",
+      "Limited ecosystem integrations",
+      "Small support organization compared to NetApp"
+    ],
+    "netappAdvantages": [
+      "30+ years of enterprise storage leadership and proven reliability",
+      "Full protocol support: block + file + object in one platform",
+      "Hybrid cloud data fabric — VAST has zero cloud story",
+      "Massive global support organization with 24/7 coverage",
+      "AFX delivers comparable AI/ML performance WITH enterprise data services"
+    ],
+    "battleCardPoints": [
+      "Ask: 'What happens when you need block storage alongside your AI data lake?'",
+      "Highlight: NetApp AFX matches VAST's performance while adding enterprise features",
+      "Risk: VAST is a startup — NetApp has proven enterprise reliability for 30+ years",
+      "Counter: NetApp's data fabric moves AI data between edge, core, and cloud seamlessly"
+    ]
+  },
+  {
+    "id": "weka",
+    "name": "Weka",
+    "products": ["WekaFS", "Weka Data Platform"],
+    "strengths": [
+      "Exceptional parallel file system performance for HPC/AI",
+      "Software-defined, runs on commodity hardware",
+      "Strong GPU-direct storage integration",
+      "Good cloud marketplace presence (AWS, Azure, GCP)"
+    ],
+    "weaknesses": [
+      "Niche player focused only on HPC/AI — not general-purpose",
+      "No block storage support",
+      "Limited enterprise data services (no snapshots, clones like ONTAP)",
+      "Small company with limited support resources",
+      "No data lifecycle management or tiering capabilities"
+    ],
+    "netappAdvantages": [
+      "Enterprise-grade data protection, DR, and compliance features",
+      "Multi-workload support — not just AI, but databases, VDI, apps too",
+      "ONTAP data services: snapshots, clones, replication, encryption",
+      "NetApp AFX with GPUDirect support matches Weka's AI performance",
+      "Established global support and professional services"
+    ],
+    "battleCardPoints": [
+      "Ask: 'What about your other workloads — databases, VDI, file services?'",
+      "Highlight: NetApp is a platform, not a point solution",
+      "Counter GPU-direct: AFX supports GPU-direct with full data services",
+      "Risk: Weka is a small company — enterprise customers need enterprise support"
+    ]
+  }
+]

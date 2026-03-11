@@ -1,0 +1,242 @@
+[
+  {
+    "id": "aff-a150",
+    "name": "AFF A150",
+    "category": "All-Flash",
+    "description": "Entry-level all-flash array for small to mid-size workloads with enterprise data services.",
+    "specs": {
+      "maxCapacityTB": 368,
+      "maxIOPS": 200000,
+      "maxThroughputGBs": 5.2,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "NVMe/FC"],
+      "maxNodes": 2
+    },
+    "useCases": ["VDI", "Small databases", "File services", "Virtualization"],
+    "pricingTier": "entry"
+  },
+  {
+    "id": "aff-a250",
+    "name": "AFF A250",
+    "category": "All-Flash",
+    "description": "Versatile all-flash storage with balanced performance and capacity for mid-range deployments.",
+    "specs": {
+      "maxCapacityTB": 552,
+      "maxIOPS": 450000,
+      "maxThroughputGBs": 8.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "NVMe/FC"],
+      "maxNodes": 2
+    },
+    "useCases": ["Databases", "VDI", "Analytics", "Mixed workloads"],
+    "pricingTier": "mid"
+  },
+  {
+    "id": "aff-a400",
+    "name": "AFF A400",
+    "category": "All-Flash",
+    "description": "High-performance all-flash array for demanding enterprise applications with rich data services.",
+    "specs": {
+      "maxCapacityTB": 2200,
+      "maxIOPS": 900000,
+      "maxThroughputGBs": 16.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "NVMe/FC", "S3"],
+      "maxNodes": 4
+    },
+    "useCases": ["Enterprise databases", "ERP", "Large-scale VDI", "AI/ML"],
+    "pricingTier": "mid-high"
+  },
+  {
+    "id": "aff-a800",
+    "name": "AFF A800",
+    "category": "All-Flash",
+    "description": "End-to-end NVMe all-flash storage delivering extreme performance for mission-critical apps.",
+    "specs": {
+      "maxCapacityTB": 4400,
+      "maxIOPS": 2400000,
+      "maxThroughputGBs": 25.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "NVMe/FC", "NVMe/TCP", "S3"],
+      "maxNodes": 12
+    },
+    "useCases": ["Oracle RAC", "SAP HANA", "High-freq trading", "AI/ML training"],
+    "pricingTier": "high"
+  },
+  {
+    "id": "aff-a900",
+    "name": "AFF A900",
+    "category": "All-Flash",
+    "description": "Flagship all-flash array with maximum performance, resilience, and scalability for the largest enterprises.",
+    "specs": {
+      "maxCapacityTB": 8800,
+      "maxIOPS": 4800000,
+      "maxThroughputGBs": 50.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "NVMe/FC", "NVMe/TCP", "S3"],
+      "maxNodes": 24
+    },
+    "useCases": ["Service providers", "Consolidation", "Mission-critical databases", "Large-scale AI/ML"],
+    "pricingTier": "enterprise"
+  },
+  {
+    "id": "aff-c250",
+    "name": "AFF C250",
+    "category": "All-Flash",
+    "description": "Capacity flash array delivering flash performance at near-HDD cost per GB.",
+    "specs": {
+      "maxCapacityTB": 1104,
+      "maxIOPS": 300000,
+      "maxThroughputGBs": 6.5,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC"],
+      "maxNodes": 2
+    },
+    "useCases": ["Data lakes", "Content repositories", "Backup targets", "Warm storage"],
+    "pricingTier": "mid"
+  },
+  {
+    "id": "aff-c400",
+    "name": "AFF C400",
+    "category": "All-Flash",
+    "description": "Mid-range capacity flash with excellent density for large datasets at flash speed.",
+    "specs": {
+      "maxCapacityTB": 4400,
+      "maxIOPS": 600000,
+      "maxThroughputGBs": 12.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "S3"],
+      "maxNodes": 4
+    },
+    "useCases": ["Large file shares", "Video surveillance", "Data protection", "Dev/test"],
+    "pricingTier": "mid"
+  },
+  {
+    "id": "aff-c800",
+    "name": "AFF C800",
+    "category": "All-Flash",
+    "description": "High-capacity flash array for massive datasets requiring flash performance.",
+    "specs": {
+      "maxCapacityTB": 8800,
+      "maxIOPS": 1200000,
+      "maxThroughputGBs": 24.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "NVMe/FC", "S3"],
+      "maxNodes": 12
+    },
+    "useCases": ["Media & entertainment", "Genomics", "Large-scale analytics", "Archive modernization"],
+    "pricingTier": "high"
+  },
+  {
+    "id": "fas-2820",
+    "name": "FAS2820",
+    "category": "Hybrid",
+    "description": "Entry-level hybrid flash array for mixed workloads with flexible SSD/HDD tiering.",
+    "specs": {
+      "maxCapacityTB": 1440,
+      "maxIOPS": 150000,
+      "maxThroughputGBs": 4.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC"],
+      "maxNodes": 2
+    },
+    "useCases": ["File services", "Backup", "ROBO", "Secondary storage"],
+    "pricingTier": "entry"
+  },
+  {
+    "id": "fas-8300",
+    "name": "FAS8300",
+    "category": "Hybrid",
+    "description": "Mid-range hybrid storage for enterprises needing balanced performance and capacity economics.",
+    "specs": {
+      "maxCapacityTB": 5760,
+      "maxIOPS": 500000,
+      "maxThroughputGBs": 12.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "S3"],
+      "maxNodes": 4
+    },
+    "useCases": ["Consolidation", "DR targets", "Tier-2 databases", "DevOps"],
+    "pricingTier": "mid"
+  },
+  {
+    "id": "fas-9500",
+    "name": "FAS9500",
+    "category": "Hybrid",
+    "description": "Enterprise hybrid array with massive scale for large unified storage environments.",
+    "specs": {
+      "maxCapacityTB": 28800,
+      "maxIOPS": 1200000,
+      "maxThroughputGBs": 25.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "S3"],
+      "maxNodes": 12
+    },
+    "useCases": ["Data center consolidation", "Large NAS", "Compliance archives", "Big data"],
+    "pricingTier": "enterprise"
+  },
+  {
+    "id": "storagegrid",
+    "name": "StorageGRID",
+    "category": "Object Storage",
+    "description": "Software-defined object storage for large unstructured data with S3-compatible API and policy-driven ILM.",
+    "specs": {
+      "maxCapacityTB": 999999,
+      "maxIOPS": 500000,
+      "maxThroughputGBs": 100.0,
+      "protocols": ["S3", "Swift"],
+      "maxNodes": 160
+    },
+    "useCases": ["Media archives", "Data lakes", "Healthcare imaging", "Compliance"],
+    "pricingTier": "varies"
+  },
+  {
+    "id": "cvo",
+    "name": "Cloud Volumes ONTAP",
+    "category": "Cloud",
+    "description": "Enterprise storage software running natively in AWS, Azure, and GCP with full ONTAP data services.",
+    "specs": {
+      "maxCapacityTB": 2048,
+      "maxIOPS": 800000,
+      "maxThroughputGBs": 16.0,
+      "protocols": ["NFS", "SMB", "iSCSI"],
+      "maxNodes": 2
+    },
+    "useCases": ["Cloud DR", "Dev/test", "Cloud migration", "Hybrid cloud"],
+    "pricingTier": "subscription"
+  },
+  {
+    "id": "anf",
+    "name": "Azure NetApp Files",
+    "category": "Cloud",
+    "description": "Fully managed Azure file storage powered by NetApp ONTAP for enterprise workloads in Azure.",
+    "specs": {
+      "maxCapacityTB": 500,
+      "maxIOPS": 450000,
+      "maxThroughputGBs": 6.4,
+      "protocols": ["NFS", "SMB"],
+      "maxNodes": 0
+    },
+    "useCases": ["SAP on Azure", "Azure VMware Solution", "Azure Virtual Desktop", "HPC"],
+    "pricingTier": "consumption"
+  },
+  {
+    "id": "fsx-ontap",
+    "name": "Amazon FSx for NetApp ONTAP",
+    "category": "Cloud",
+    "description": "Fully managed AWS file storage with NetApp ONTAP features for AWS workloads.",
+    "specs": {
+      "maxCapacityTB": 192,
+      "maxIOPS": 400000,
+      "maxThroughputGBs": 4.0,
+      "protocols": ["NFS", "SMB", "iSCSI"],
+      "maxNodes": 2
+    },
+    "useCases": ["AWS migration", "EKS persistent volumes", "SQL Server on AWS", "VMware Cloud on AWS"],
+    "pricingTier": "consumption"
+  },
+  {
+    "id": "afx",
+    "name": "NetApp AFX",
+    "category": "All-Flash",
+    "description": "Next-generation disaggregated all-flash architecture with independent compute and storage scaling.",
+    "specs": {
+      "maxCapacityTB": 17600,
+      "maxIOPS": 9600000,
+      "maxThroughputGBs": 100.0,
+      "protocols": ["NFS", "SMB", "iSCSI", "FC", "NVMe/FC", "NVMe/TCP", "S3"],
+      "maxNodes": 48
+    },
+    "useCases": ["AI/ML at scale", "Real-time analytics", "Multi-cloud data fabric", "Next-gen data centers"],
+    "pricingTier": "enterprise"
+  }
+]

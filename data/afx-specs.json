@@ -1,0 +1,108 @@
+{
+  "platform": "NetApp AFX",
+  "description": "Next-generation disaggregated all-flash architecture enabling independent scaling of compute and storage resources.",
+  "computeNodes": [
+    {
+      "model": "AFX-CN1",
+      "type": "Standard",
+      "cores": 32,
+      "ramGB": 256,
+      "networkPorts": "4x 100GbE",
+      "maxPerCluster": 24,
+      "description": "General-purpose compute node for mixed enterprise workloads"
+    },
+    {
+      "model": "AFX-CN2",
+      "type": "Performance",
+      "cores": 64,
+      "ramGB": 512,
+      "networkPorts": "8x 100GbE",
+      "maxPerCluster": 24,
+      "description": "High-performance compute node for demanding AI/ML and analytics workloads"
+    },
+    {
+      "model": "AFX-CN3",
+      "type": "Capacity-Optimized",
+      "cores": 16,
+      "ramGB": 128,
+      "networkPorts": "2x 100GbE",
+      "maxPerCluster": 48,
+      "description": "Cost-effective compute node for capacity-oriented and secondary workloads"
+    }
+  ],
+  "storageShelves": [
+    {
+      "model": "AFX-SS1",
+      "type": "Performance NVMe",
+      "driveType": "NVMe SSD",
+      "driveCount": 24,
+      "capacityPerDriveTB": 3.84,
+      "rawCapacityTB": 92.16,
+      "effectiveCapacityTB": 184.32,
+      "maxIOPS": 500000,
+      "maxThroughputGBs": 12.0,
+      "description": "High-performance NVMe shelf for latency-sensitive workloads"
+    },
+    {
+      "model": "AFX-SS2",
+      "type": "Balanced NVMe",
+      "driveType": "NVMe SSD",
+      "driveCount": 24,
+      "capacityPerDriveTB": 7.68,
+      "rawCapacityTB": 184.32,
+      "effectiveCapacityTB": 368.64,
+      "maxIOPS": 400000,
+      "maxThroughputGBs": 10.0,
+      "description": "Balanced NVMe shelf for general-purpose enterprise workloads"
+    },
+    {
+      "model": "AFX-SS3",
+      "type": "Capacity NVMe",
+      "driveType": "QLC NVMe SSD",
+      "driveCount": 24,
+      "capacityPerDriveTB": 15.36,
+      "rawCapacityTB": 368.64,
+      "effectiveCapacityTB": 737.28,
+      "maxIOPS": 200000,
+      "maxThroughputGBs": 8.0,
+      "description": "High-capacity QLC NVMe shelf for capacity-intensive workloads"
+    }
+  ],
+  "networkFabric": {
+    "type": "100GbE Ethernet / 64Gb FC",
+    "switchOptions": ["Cisco Nexus 9336C-FX2", "NVIDIA Spectrum-3"],
+    "rdmaSupport": true,
+    "gpuDirectSupport": true,
+    "maxBandwidthGbps": 3200,
+    "description": "High-speed non-blocking fabric connecting compute and storage tiers"
+  },
+  "software": {
+    "os": "ONTAP 9.15+",
+    "dataServices": [
+      "Inline deduplication",
+      "Inline compression",
+      "Data compaction",
+      "Thin provisioning",
+      "Snapshot copies",
+      "SnapMirror replication",
+      "SnapLock compliance",
+      "FlexClone",
+      "FabricPool tiering",
+      "Anti-ransomware protection",
+      "Multi-admin verification"
+    ],
+    "protocols": ["NFS v3/v4/v4.1", "SMB 3.1.1", "iSCSI", "FC 32/64Gb", "NVMe/FC", "NVMe/TCP", "S3"],
+    "management": ["System Manager", "CLI", "REST API", "Ansible", "Terraform"],
+    "cloudIntegration": ["BlueXP", "Cloud Volumes ONTAP", "FabricPool to S3/Blob/GCS"]
+  },
+  "scalingLimits": {
+    "maxComputeNodes": 48,
+    "maxStorageShelves": 96,
+    "maxRawCapacityPB": 35.4,
+    "maxEffectiveCapacityPB": 70.8,
+    "minConfig": {
+      "computeNodes": 2,
+      "storageShelves": 1
+    }
+  }
+}
