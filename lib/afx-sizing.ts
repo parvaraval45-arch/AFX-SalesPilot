@@ -1,228 +1,175 @@
-export interface SizingInput {
-  workloadType: WorkloadType;
-  capacityTB: number;
-  iopsRequired: number;
-  throughputGBs: number;
-  protocolType: string;
-  growthPercent: number;
-  haRequired: boolean;
-}
-
 export type WorkloadType =
-  | "VDI"
-  | "Databases"
-  | "VMware"
-  | "AI/ML"
-  | "File Services"
-  | "EDA"
-  | "Analytics"
-  | "Mixed";
+  | "AI_training"
+  | "AI_inference"
+  | "HPC_EDA"
+  | "media_rendering"
+  | "general_nas"
+  | "mixed";
 
-export interface SizingResult {
-  computeNodes: {
-    model: string;
-    type: string;
-    count: number;
-    totalCores: number;
-    totalRAMGB: number;
-  };
-  storageShelves: {
-    model: string;
-    type: string;
-    count: number;
-    rawCapacityTB: number;
-    effectiveCapacityTB: number;
-  };
-  network: {
-    fabricType: string;
-    portsRequired: number;
-    bandwidthGbps: number;
-  };
-  performance: {
-    estimatedIOPS: number;
-    estimatedThroughputGBs: number;
-    latencyMs: string;
-  };
-  costTier: "Standard" | "Performance" | "Premium" | "Enterprise";
-  summary: string;
-  projections: {
-    year1CapacityTB: number;
-    year2CapacityTB: number;
-    year3CapacityTB: number;
-    headroomPercent: number;
-  };
+export interface SizingInputs {
+  workloadType: WorkloadType;
+  rawCapacityTB: number;
+  peakThroughputGBs: number;
+  gpuNodeCount: number;
+  aideFeatures: string[];
+  deploymentModel: "capex" | "keystone" | "both";
 }
 
-interface WorkloadProfile {
-  dataReductionRatio: number;
-  iopsPerComputeNode: number;
-  preferredShelf: "AFX-SS1" | "AFX-SS2" | "AFX-SS3";
-  preferredCompute: "AFX-CN1" | "AFX-CN2" | "AFX-CN3";
-  latencyTarget: string;
+export interface KeystoneEstimate {
+  performanceTierMonthly: { low: number; high: number };
+  capacityTierMonthly: { low: number; high: number };
+  computeMonthly: { low: number; high: number };
+  totalMonthly: { low: number; high: number };
+  disclaimer: string;
 }
 
-const WORKLOAD_PROFILES: Record<WorkloadType, WorkloadProfile> = {
-  VDI: {
-    dataReductionRatio: 3.0,
-    iopsPerComputeNode: 150000,
-    preferredShelf: "AFX-SS2",
-    preferredCompute: "AFX-CN1",
-    latencyTarget: "<1ms",
-  },
-  Databases: {
-    dataReductionRatio: 2.0,
-    iopsPerComputeNode: 200000,
-    preferredShelf: "AFX-SS1",
-    preferredCompute: "AFX-CN2",
-    latencyTarget: "<0.5ms",
-  },
-  VMware: {
-    dataReductionRatio: 2.5,
-    iopsPerComputeNode: 120000,
-    preferredShelf: "AFX-SS2",
-    preferredCompute: "AFX-CN1",
-    latencyTarget: "<1ms",
-  },
-  "AI/ML": {
-    dataReductionRatio: 1.5,
-    iopsPerComputeNode: 250000,
-    preferredShelf: "AFX-SS1",
-    preferredCompute: "AFX-CN2",
-    latencyTarget: "<0.3ms",
-  },
-  "File Services": {
-    dataReductionRatio: 2.0,
-    iopsPerComputeNode: 80000,
-    preferredShelf: "AFX-SS3",
-    preferredCompute: "AFX-CN3",
-    latencyTarget: "<2ms",
-  },
-  EDA: {
-    dataReductionRatio: 1.3,
-    iopsPerComputeNode: 200000,
-    preferredShelf: "AFX-SS1",
-    preferredCompute: "AFX-CN2",
-    latencyTarget: "<0.5ms",
-  },
-  Analytics: {
-    dataReductionRatio: 2.5,
-    iopsPerComputeNode: 180000,
-    preferredShelf: "AFX-SS2",
-    preferredCompute: "AFX-CN2",
-    latencyTarget: "<1ms",
-  },
-  Mixed: {
-    dataReductionRatio: 2.0,
-    iopsPerComputeNode: 130000,
-    preferredShelf: "AFX-SS2",
-    preferredCompute: "AFX-CN1",
-    latencyTarget: "<1ms",
-  },
+export interface AFXComparison {
+  metric: string;
+  afx: string | number;
+  aff_a1k: string | number;
+}
+
+export interface AFXConfiguration {
+  controllers: number;
+  enclosures: number;
+  dx50_nodes: number;
+  drive_size_tb: number;
+  raw_tb: number;
+  effective_tb: number;
+  peak_throughput_gbs: number;
+  keystone_estimate: KeystoneEstimate | null;
+  dedup_ratio: number;
+  compress_ratio: number;
+  warnings: string[];
+  comparison: AFXComparison[];
+}
+
+const OVERHEAD = 0.15;
+
+const DEDUP_RATIOS: Record<string, number> = {
+  AI_training: 1.2,
+  AI_inference: 1.2,
+  HPC_EDA: 1.5,
+  media_rendering: 1.1,
+  general_nas: 2.0,
+  mixed: 1.4,
 };
 
-const SHELF_SPECS = {
-  "AFX-SS1": { rawTB: 92.16, effectiveTB: 184.32, iops: 500000, throughput: 12.0 },
-  "AFX-SS2": { rawTB: 184.32, effectiveTB: 368.64, iops: 400000, throughput: 10.0 },
-  "AFX-SS3": { rawTB: 368.64, effectiveTB: 737.28, iops: 200000, throughput: 8.0 },
+const COMPRESS_RATIOS: Record<string, number> = {
+  AI_training: 1.3,
+  AI_inference: 1.3,
+  HPC_EDA: 1.8,
+  media_rendering: 1.0,
+  general_nas: 1.5,
+  mixed: 1.4,
 };
 
-const COMPUTE_SPECS = {
-  "AFX-CN1": { cores: 32, ramGB: 256, ports: 4 },
-  "AFX-CN2": { cores: 64, ramGB: 512, ports: 8 },
-  "AFX-CN3": { cores: 16, ramGB: 128, ports: 2 },
-};
+const DRIVE_OPTIONS_TB = [7.6, 15.3, 30.6, 60];
+const DRIVES_PER_ENCLOSURE = 24;
+const THROUGHPUT_PER_PAIR_GBS = 62.5;
+const MAX_CONTROLLERS = 128;
+const MAX_ENCLOSURES = 52;
+const MAX_DX50 = 10;
 
-export function calculateSizing(input: SizingInput): SizingResult {
-  const profile = WORKLOAD_PROFILES[input.workloadType];
+function selectDriveSize(rawCapacityTB: number): number {
+  // Pick the smallest drive that keeps enclosure count within limits
+  for (const drive of DRIVE_OPTIONS_TB) {
+    const enclosures = Math.ceil(rawCapacityTB / (DRIVES_PER_ENCLOSURE * drive));
+    if (enclosures <= MAX_ENCLOSURES) return drive;
+  }
+  return DRIVE_OPTIONS_TB[DRIVE_OPTIONS_TB.length - 1];
+}
 
-  // Calculate capacity with growth projection (3-year)
-  const growthMultiplier = Math.pow(1 + input.growthPercent / 100, 3);
-  const projectedCapacityTB = input.capacityTB * growthMultiplier;
-  const rawCapacityNeeded = projectedCapacityTB / profile.dataReductionRatio;
+export function calculateAFX(inputs: SizingInputs): AFXConfiguration {
+  const warnings: string[] = [];
 
-  // Determine storage shelves
-  const shelfSpec = SHELF_SPECS[profile.preferredShelf];
-  const shelvesForCapacity = Math.ceil(rawCapacityNeeded / shelfSpec.rawTB);
-  const shelvesForIOPS = Math.ceil(input.iopsRequired / shelfSpec.iops);
-  const shelvesForThroughput = Math.ceil(input.throughputGBs / shelfSpec.throughput);
-  const shelfCount = Math.max(shelvesForCapacity, shelvesForIOPS, shelvesForThroughput, 1);
+  const dedupRatio = DEDUP_RATIOS[inputs.workloadType] || 1.4;
+  const compressRatio = COMPRESS_RATIOS[inputs.workloadType] || 1.4;
 
-  // Determine compute nodes
-  const computeSpec = COMPUTE_SPECS[profile.preferredCompute];
-  const computeForIOPS = Math.ceil(input.iopsRequired / profile.iopsPerComputeNode);
-  let computeCount = Math.max(computeForIOPS, 2); // minimum 2 for HA
-  if (input.haRequired) {
-    computeCount = Math.max(computeCount, 2);
-    // Ensure even number for HA pairs
-    if (computeCount % 2 !== 0) computeCount++;
+  // Capacity sizing: effective = raw / (1 - overhead) * dedup * compress
+  const rawNeeded = inputs.rawCapacityTB / (1 - OVERHEAD);
+  // Performance: each controller pair = 62.5 GB/s, single controller = 31.25 GB/s
+  let controllersNeeded = Math.ceil(inputs.peakThroughputGBs / 31.25);
+  // Must be even (HA pairs), minimum 2
+  if (controllersNeeded < 2) controllersNeeded = 2;
+  if (controllersNeeded % 2 !== 0) controllersNeeded++;
+
+  // Select drive size and calculate enclosures
+  const driveSize = selectDriveSize(rawNeeded);
+  let enclosuresNeeded = Math.ceil(rawNeeded / (DRIVES_PER_ENCLOSURE * driveSize));
+  if (enclosuresNeeded < 1) enclosuresNeeded = 1;
+
+  // DX50 nodes: needed for AI inference or AIDE features
+  const needsAIDE = inputs.aideFeatures.length > 0;
+  const needsInference = inputs.workloadType === "AI_inference";
+  let dx50Nodes = inputs.gpuNodeCount;
+  if ((needsAIDE || needsInference) && dx50Nodes === 0) {
+    dx50Nodes = needsAIDE ? Math.max(1, Math.ceil(inputs.aideFeatures.length / 2)) : 1;
   }
 
-  // Network calculation
-  const totalPorts = computeCount * computeSpec.ports;
-  const bandwidthGbps = totalPorts * 100;
+  // Validate limits
+  if (controllersNeeded > MAX_CONTROLLERS) {
+    warnings.push(`Controller count (${controllersNeeded}) exceeds maximum (${MAX_CONTROLLERS}). Clamped to ${MAX_CONTROLLERS}.`);
+    controllersNeeded = MAX_CONTROLLERS;
+  }
+  if (enclosuresNeeded > MAX_ENCLOSURES) {
+    warnings.push(`Enclosure count (${enclosuresNeeded}) exceeds maximum (${MAX_ENCLOSURES}). Consider FabricPool for additional capacity.`);
+    enclosuresNeeded = MAX_ENCLOSURES;
+  }
+  if (dx50Nodes > MAX_DX50) {
+    warnings.push(`DX50 node count (${dx50Nodes}) exceeds maximum (${MAX_DX50}). Clamped to ${MAX_DX50}.`);
+    dx50Nodes = MAX_DX50;
+  }
 
-  // Performance estimates
-  const estimatedIOPS = Math.min(shelfCount * shelfSpec.iops, computeCount * profile.iopsPerComputeNode);
-  const estimatedThroughput = shelfCount * shelfSpec.throughput;
+  const actualRawTB = enclosuresNeeded * DRIVES_PER_ENCLOSURE * driveSize;
+  const actualEffectiveTB = actualRawTB * (1 - OVERHEAD) * dedupRatio * compressRatio;
+  const peakThroughput = (controllersNeeded / 2) * THROUGHPUT_PER_PAIR_GBS;
 
-  // Cost tier
-  let costTier: SizingResult["costTier"] = "Standard";
-  if (computeCount >= 8 || shelfCount >= 12) costTier = "Enterprise";
-  else if (computeCount >= 4 || shelfCount >= 6) costTier = "Premium";
-  else if (profile.preferredCompute === "AFX-CN2") costTier = "Performance";
+  // Keystone pricing estimate
+  let keystoneEstimate: KeystoneEstimate | null = null;
+  if (inputs.deploymentModel === "keystone" || inputs.deploymentModel === "both") {
+    const rawGB = actualRawTB * 1024;
+    const perfLow = rawGB * 0.08;
+    const perfHigh = rawGB * 0.12;
+    const capLow = rawGB * 0.04;
+    const capHigh = rawGB * 0.06;
+    const computeLow = dx50Nodes * 2500;
+    const computeHigh = dx50Nodes * 4000;
 
-  // Growth projections
-  const year1Capacity = input.capacityTB;
-  const year2Capacity = input.capacityTB * (1 + input.growthPercent / 100);
-  const year3Capacity = projectedCapacityTB;
-  const totalEffectiveCapacity = shelfCount * shelfSpec.effectiveTB;
-  const headroom = ((totalEffectiveCapacity - projectedCapacityTB) / totalEffectiveCapacity) * 100;
+    keystoneEstimate = {
+      performanceTierMonthly: { low: Math.round(perfLow), high: Math.round(perfHigh) },
+      capacityTierMonthly: { low: Math.round(capLow), high: Math.round(capHigh) },
+      computeMonthly: { low: computeLow, high: computeHigh },
+      totalMonthly: {
+        low: Math.round(perfLow + computeLow),
+        high: Math.round(perfHigh + computeHigh),
+      },
+      disclaimer: "Directional estimates only. Always recommend formal Keystone quote.",
+    };
+  }
 
-  const result: SizingResult = {
-    computeNodes: {
-      model: profile.preferredCompute,
-      type: profile.preferredCompute === "AFX-CN1" ? "Standard" : profile.preferredCompute === "AFX-CN2" ? "Performance" : "Capacity-Optimized",
-      count: computeCount,
-      totalCores: computeCount * computeSpec.cores,
-      totalRAMGB: computeCount * computeSpec.ramGB,
-    },
-    storageShelves: {
-      model: profile.preferredShelf,
-      type: profile.preferredShelf === "AFX-SS1" ? "Performance NVMe" : profile.preferredShelf === "AFX-SS2" ? "Balanced NVMe" : "Capacity NVMe",
-      count: shelfCount,
-      rawCapacityTB: shelfCount * shelfSpec.rawTB,
-      effectiveCapacityTB: totalEffectiveCapacity,
-    },
-    network: {
-      fabricType: "100GbE Ethernet",
-      portsRequired: totalPorts,
-      bandwidthGbps,
-    },
-    performance: {
-      estimatedIOPS,
-      estimatedThroughputGBs: estimatedThroughput,
-      latencyMs: profile.latencyTarget,
-    },
-    costTier,
-    summary: "",
-    projections: {
-      year1CapacityTB: Math.round(year1Capacity * 10) / 10,
-      year2CapacityTB: Math.round(year2Capacity * 10) / 10,
-      year3CapacityTB: Math.round(year3Capacity * 10) / 10,
-      headroomPercent: Math.round(headroom * 10) / 10,
-    },
+  // Comparison: AFX vs AFF A1K for same workload
+  const affA1kNodes = Math.ceil(inputs.peakThroughputGBs / 12.5); // A1K pair ~25 GB/s, single ~12.5
+  const affA1kNodesEven = affA1kNodes % 2 !== 0 ? affA1kNodes + 1 : Math.max(affA1kNodes, 2);
+  const comparison: AFXComparison[] = [
+    { metric: "Throughput (GB/s)", afx: peakThroughput, aff_a1k: (affA1kNodesEven / 2) * 25 },
+    { metric: "Effective Capacity (TB)", afx: Math.round(actualEffectiveTB), aff_a1k: Math.round(actualEffectiveTB * 0.6) },
+    { metric: "Node Count", afx: controllersNeeded, aff_a1k: Math.min(affA1kNodesEven, 24) },
+    { metric: "Relative Cost Index", afx: 100, aff_a1k: Math.round(100 * (affA1kNodesEven / controllersNeeded) * 1.4) },
+  ];
+
+  return {
+    controllers: controllersNeeded,
+    enclosures: enclosuresNeeded,
+    dx50_nodes: dx50Nodes,
+    drive_size_tb: driveSize,
+    raw_tb: Math.round(actualRawTB * 10) / 10,
+    effective_tb: Math.round(actualEffectiveTB * 10) / 10,
+    peak_throughput_gbs: peakThroughput,
+    keystone_estimate: keystoneEstimate,
+    dedup_ratio: dedupRatio,
+    compress_ratio: compressRatio,
+    warnings,
+    comparison,
   };
-
-  result.summary = generateSizingSummary(result, input);
-  return result;
-}
-
-function generateSizingSummary(result: SizingResult, input: SizingInput): string {
-  return `Recommended AFX Configuration for ${input.workloadType}:
-• ${result.computeNodes.count}x ${result.computeNodes.model} (${result.computeNodes.type}) compute nodes — ${result.computeNodes.totalCores} cores, ${result.computeNodes.totalRAMGB}GB RAM
-• ${result.storageShelves.count}x ${result.storageShelves.model} (${result.storageShelves.type}) storage shelves — ${Math.round(result.storageShelves.effectiveCapacityTB)}TB effective capacity
-• ${result.network.fabricType} fabric with ${result.network.portsRequired} ports (${result.network.bandwidthGbps}Gbps aggregate)
-• Estimated performance: ${(result.performance.estimatedIOPS / 1000).toFixed(0)}K IOPS, ${result.performance.estimatedThroughputGBs.toFixed(1)}GB/s throughput, ${result.performance.latencyMs} latency
-• 3-year capacity headroom: ${result.projections.headroomPercent}%
-• Cost tier: ${result.costTier}`;
 }
