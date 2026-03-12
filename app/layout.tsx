@@ -23,17 +23,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={geistSans.variable}>
-      <body className="font-sans antialiased bg-netapp-surface">
+      <body className="font-sans antialiased bg-netapp-surface overflow-x-hidden">
         <Sidebar />
         {/* Desktop layout */}
-        <div className="hidden md:flex md:ml-[240px] min-h-screen flex-col">
+        <div className="hidden md:flex min-h-screen flex-col" style={{ marginLeft: 240 }}>
           <TopBar />
-          <main className="flex-1 p-6">{children}</main>
+          <main className="flex-1 p-6 overflow-x-hidden">{children}</main>
         </div>
         {/* Mobile layout */}
         <div className="md:hidden min-h-screen flex flex-col pb-16">
           <TopBar />
-          <main className="flex-1 p-4">{children}</main>
+          <main className="flex-1 p-4 overflow-x-hidden">{children}</main>
         </div>
       </body>
     </html>
