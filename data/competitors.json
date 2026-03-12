@@ -1,157 +1,206 @@
 [
   {
-    "id": "pure-storage",
-    "name": "Pure Storage",
-    "products": ["FlashArray//X", "FlashArray//C", "FlashArray//XL", "FlashBlade", "FlashBlade//S"],
+    "id": "pure-flashblade",
+    "name": "Pure Storage FlashBlade S",
+    "category": "Parallel NAS / AI Storage",
+    "architecture": "Scale-out all-NVMe, tightly coupled blades",
+    "max_throughput_gbs": 1200,
+    "protocols": ["NFS", "S3", "SMB"],
+    "pricing_model": "Evergreen//One subscription or CapEx",
+    "ai_tooling": "Pure1 AI Copilot (post-sale ops), RightSize Guarantee",
     "strengths": [
-      "Evergreen subscription model with strong customer loyalty",
-      "Simple, intuitive management UI (Pure1)",
-      "DirectFlash technology eliminates SSD overhead",
-      "Strong brand recognition in all-flash market"
+      "Strong AI storage brand with Meta AI/ML telemetry backing",
+      "RightSize Guarantee eliminates sizing risk — killer sales tool",
+      "Pure1 conversational AI for health and capacity (post-sale)",
+      "100% channel model with strong WaveMakers partner community",
+      "Evergreen//One exceeded 400M USD ARR, fast growing"
     ],
     "weaknesses": [
-      "No hybrid (HDD+SSD) offering — all-flash only",
-      "Limited multi-protocol support vs ONTAP unified architecture",
-      "No native object storage solution",
-      "Weaker in file services and NAS workloads",
-      "Higher cost per effective TB when data reduction is average"
+      "No disaggregated architecture — compute and capacity scale together",
+      "No native AI data processing (no equivalent to AIDE/DX50)",
+      "No multi-protocol block support — NAS and S3 only like AFX",
+      "No ONTAP data services ecosystem (SnapMirror, cloud volumes)",
+      "FlashBlade cluster limits lower than AFX 128-node max"
     ],
-    "netappAdvantages": [
-      "ONTAP unified storage supports block, file, AND object in one platform",
-      "Superior hybrid cloud story with CVO, ANF, and FSx for ONTAP",
-      "Better data efficiency with inline compression, dedup, and compaction",
-      "Proven scale-out to 24 nodes vs Pure's limited clustering",
-      "Broader protocol support including NVMe/TCP and S3"
+    "afx_advantages": [
+      "AFX scales compute (DX50) independently from capacity (NX224) — Pure cannot",
+      "AIDE runs vectorization and semantic search natively on storage hardware",
+      "128-node AFX clusters vs FlashBlade S scale-out limits",
+      "Full ONTAP ecosystem: SnapMirror to ANF, FSx, GCNV cloud integration"
     ],
-    "battleCardPoints": [
-      "Ask: 'How do you handle file workloads alongside block?' — Pure has no unified answer",
-      "Highlight: NetApp's cloud integration is native, not bolt-on",
-      "Counter Evergreen: NetApp offers comparable upgrade programs PLUS hybrid cloud mobility",
-      "Data gravity: NetApp moves data seamlessly between on-prem and any cloud"
+    "killer_questions": [
+      "Can FlashBlade scale its compute resources independently from capacity when your AI inference load grows without adding more storage?",
+      "How does Pure handle PII detection and data governance natively on the storage system without a separate compute tier?",
+      "When you outgrow FlashBlade capacity, what is the data migration path and downtime impact?"
     ]
   },
   {
-    "id": "dell-emc",
-    "name": "Dell EMC",
-    "products": ["PowerStore", "PowerScale (Isilon)", "PowerFlex", "Unity XT", "ECS"],
+    "id": "dell-powerstore",
+    "name": "Dell PowerStore / ECS",
+    "category": "Unified Enterprise Storage",
+    "architecture": "Scale-up unified with AppsON containers",
+    "protocols": ["NFS", "SMB", "iSCSI", "FCP", "NVMe-oF", "S3"],
+    "pricing_model": "CapEx, APEX as-a-service",
+    "ai_tooling": "AI-Powered Demand Signals for partners, Live Optics workload analysis",
     "strengths": [
-      "Massive installed base and channel partner network",
-      "Broad portfolio covering all storage segments",
-      "Strong in HPC/scale-out NAS with PowerScale",
-      "Bundling advantage with Dell servers and networking"
+      "Full unified protocol support across NAS, SAN, and object",
+      "Live Optics free workload analysis (7-day real-time data collection)",
+      "AI Demand Signals for partner sales intelligence — industry-leading",
+      "Massive installed base and channel scale",
+      "PowerSizer and Smart Select for self-service configuration"
     ],
     "weaknesses": [
-      "Fragmented portfolio — multiple OS/platforms to manage",
-      "No unified data management across arrays (unlike ONTAP)",
-      "Cloud strategy is complex with multiple disconnected offerings",
-      "PowerStore still maturing vs established ONTAP feature set",
-      "Storage efficiency features lag behind NetApp"
+      "No disaggregated architecture — scale-up model hits capacity ceilings",
+      "No dedicated AI compute tier equivalent to DX50",
+      "APEX pricing complexity vs NetApp Keystone transparency",
+      "Parallel CPQ systems and legacy ERP cause deal friction (Dell's own admission)",
+      "ECS object storage separate product — no unified NAS+object platform"
     ],
-    "netappAdvantages": [
-      "Single ONTAP OS across all-flash, hybrid, and cloud — one skillset",
-      "Superior cloud integration: native in AWS, Azure, GCP",
-      "Better data reduction ratios with guaranteed storage efficiency",
-      "Simpler operations: one management plane vs Dell's fragmented tools",
-      "Non-disruptive operations and proven 99.9999% availability"
+    "afx_advantages": [
+      "AFX is purpose-built for AI/HPC — PowerStore is a general-purpose platform",
+      "128-node disaggregated clusters vs PowerStore scale-up ceiling",
+      "AIDE native AI processing on storage vs Dell requiring separate compute",
+      "Keystone STaaS with transparent partner margin vs APEX complexity"
     ],
-    "battleCardPoints": [
-      "Ask: 'How many different storage operating systems does Dell require you to manage?'",
-      "Highlight: NetApp ONTAP runs the same everywhere — on-prem to any cloud",
-      "Counter bundling: Total cost of ownership favors NetApp when factoring data efficiency",
-      "Migration: ONTAP's data mobility means no lock-in — data moves freely"
+    "killer_questions": [
+      "When your AI cluster needs 10x more compute for inference without adding storage capacity, what is the PowerStore upgrade path?",
+      "How many separate Dell tools (Live Optics, PowerSizer, APEX calculator, CPQ) does your SE need to run a complete sizing engagement?",
+      "What is the data path latency from GPU memory to PowerStore NFS vs AFX GPUDirect?"
     ]
   },
   {
-    "id": "hpe",
-    "name": "HPE (Hewlett Packard Enterprise)",
-    "products": ["Alletra 5000", "Alletra 6000", "Alletra 9000", "Alletra MP"],
+    "id": "hpe-alletra",
+    "name": "HPE Alletra MP",
+    "category": "Cloud-as-a-Service Storage",
+    "architecture": "Scale-out, GreenLake cloud operating model",
+    "protocols": ["NFS", "SMB", "iSCSI", "FCP", "NVMe-oF"],
+    "pricing_model": "GreenLake consumption-based, CapEx",
+    "ai_tooling": "InfoSight ML predictive analytics",
     "strengths": [
-      "GreenLake consumption model with strong enterprise adoption",
-      "Alletra MP converges block and file",
-      "Strong services organization and global support",
-      "HPE InfoSight AI-driven operations"
+      "GreenLake instant quoting: 4 SLA attributes, 14-day delivery possible",
+      "HPE OCS publicly accessible — no authentication for configuration",
+      "InfoSight ML feeds both pre-sales conversations and operations",
+      "Strong consumption model flexibility"
     ],
     "weaknesses": [
-      "Alletra portfolio still consolidating from Nimble/3PAR/Primera heritage",
-      "Cloud storage strategy lags significantly behind NetApp",
-      "Limited scale-out NAS capabilities",
-      "No object storage offering",
-      "Weaker data reduction compared to NetApp"
+      "Most fragmented toolset in the industry: NinjaSTARS, InfoSight Sizer, HPE Storage Sizer, OCA, OCS, iQuote — 6+ overlapping tools",
+      "No disaggregated architecture for NAS workloads",
+      "No native AI data processing tier",
+      "Alletra MP focused on block and unified — not HPC/AI-native"
     ],
-    "netappAdvantages": [
-      "Mature, unified ONTAP platform vs HPE's transitioning portfolio",
-      "Far superior hybrid cloud integration with native cloud services",
-      "Better scale-out capabilities for both NAS and SAN",
-      "Proven data management features with decades of ONTAP innovation",
-      "Object storage with StorageGRID — HPE has no equivalent"
+    "afx_advantages": [
+      "AFX is AI-native from architecture up — Alletra MP retrofits AI onto a general platform",
+      "AIDE semantic search and vectorization has no Alletra equivalent",
+      "AFX SalesPilot consolidates 6+ HPE tools into a single AI interface",
+      "128-node disaggregated clusters purpose-built for GPU workloads"
     ],
-    "battleCardPoints": [
-      "Ask: 'What's your cloud data mobility story?' — HPE struggles here",
-      "Highlight: ONTAP is one proven OS, not a rebadged collection of acquisitions",
-      "Counter GreenLake: NetApp Keystone flex-sub offers similar economics with better tech",
-      "Scale: NetApp scales to 24 nodes seamlessly; HPE clustering is limited"
+    "killer_questions": [
+      "Which of the six HPE sizing tools does your SE use first for an AI storage engagement, and how long does it take to get from workload description to quote?",
+      "How does GreenLake handle independent scaling of storage compute for AI inference without repricing the entire consumption contract?",
+      "What is the GPUDirect Storage validated throughput for Alletra MP vs AFX 457 GiB/s benchmark?"
+    ]
+  },
+  {
+    "id": "weka",
+    "name": "WEKA Data Platform",
+    "category": "AI-Native Parallel File System",
+    "architecture": "Software-defined parallel file system on commodity NVMe",
+    "protocols": ["POSIX", "NFS", "S3", "GPUDirect"],
+    "pricing_model": "Software subscription on customer or cloud hardware",
+    "ai_tooling": "Native GPU integration, Kubernetes CSI driver",
+    "strengths": [
+      "Purpose-built for AI/ML — fastest time to data for GPU clusters",
+      "Strong Kubernetes and cloud-native ecosystem",
+      "Software-defined flexibility on customer hardware",
+      "Native POSIX file system semantics for AI frameworks"
+    ],
+    "weaknesses": [
+      "Software-only — requires separate hardware investment and management",
+      "No enterprise data services (no SnapMirror, no ONTAP ecosystem)",
+      "No native object storage protocol maturity vs ONTAP S3",
+      "No hybrid cloud integration to hyperscalers like ANF, FSx, GCNV",
+      "Support model differs significantly from enterprise storage vendors"
+    ],
+    "afx_advantages": [
+      "AFX is a complete hardware+software system vs WEKA software-only on commodity",
+      "Full ONTAP data services: SnapMirror, FlexCache, cloud tiering to all hyperscalers",
+      "NetApp enterprise support vs WEKA startup support model",
+      "AIDE integrates NVIDIA NIM microservices natively — WEKA requires external setup",
+      "Keystone STaaS provides consumption model without separate HW procurement"
+    ],
+    "killer_questions": [
+      "When WEKA needs a hardware refresh, who owns the HW procurement, and what is the migration impact on running AI jobs?",
+      "How does WEKA replicate data to Azure NetApp Files or Amazon FSx for disaster recovery or cloud burst compute?",
+      "What enterprise data governance and PII protection does WEKA provide natively versus requiring third-party tooling?"
     ]
   },
   {
     "id": "vast-data",
     "name": "VAST Data",
-    "products": ["VAST Data Platform", "VAST InsightEngine"],
+    "category": "Disaggregated NFS at Scale",
+    "architecture": "Disaggregated stateless servers and JBOFs — direct AFX architectural peer",
+    "protocols": ["NFS", "S3", "SMB"],
+    "pricing_model": "CapEx, subscription",
+    "ai_tooling": "VAST InsightEngine for data cataloging and ML metadata",
     "strengths": [
-      "Purpose-built for AI/ML and deep learning workloads",
-      "NFS/S3 multiprotocol on single namespace",
-      "QLC flash economics with NVMe performance",
-      "Simple, single-tier architecture"
+      "True disaggregated architecture — credible AFX competitor on architecture",
+      "Strong AI/ML customer base in financial services and research",
+      "VAST InsightEngine for data cataloging is a real differentiator",
+      "Proven at very large scale deployments",
+      "Good NFS performance with stateless server design"
     ],
     "weaknesses": [
-      "Startup with limited enterprise track record",
-      "No block storage (SAN) support",
-      "No hybrid cloud or cloud-native offerings",
-      "Limited ecosystem integrations",
-      "Small support organization compared to NetApp"
+      "No enterprise OS equivalent to ONTAP — no SnapMirror, no unified protocols",
+      "No hybrid cloud integration to hyperscalers (no VAST equivalent of ANF/FSx)",
+      "No native GPU compute node equivalent to DX50 for on-storage inference",
+      "Smaller support organization vs NetApp global support",
+      "No consumption pricing equivalent to Keystone STaaS with partner margin"
     ],
-    "netappAdvantages": [
-      "30+ years of enterprise storage leadership and proven reliability",
-      "Full protocol support: block + file + object in one platform",
-      "Hybrid cloud data fabric — VAST has zero cloud story",
-      "Massive global support organization with 24/7 coverage",
-      "AFX delivers comparable AI/ML performance WITH enterprise data services"
+    "afx_advantages": [
+      "AFX brings full ONTAP ecosystem: 20+ years of enterprise data services vs VAST custom OS",
+      "DX50 compute nodes run AIDE for on-storage inference — no VAST equivalent",
+      "SnapMirror to ANF, FSx, GCNV provides hybrid cloud path VAST lacks",
+      "Keystone STaaS with approximately 20% partner margin vs VAST direct sales model",
+      "NetApp channel partner ecosystem vs VAST limited channel"
     ],
-    "battleCardPoints": [
-      "Ask: 'What happens when you need block storage alongside your AI data lake?'",
-      "Highlight: NetApp AFX matches VAST's performance while adding enterprise features",
-      "Risk: VAST is a startup — NetApp has proven enterprise reliability for 30+ years",
-      "Counter: NetApp's data fabric moves AI data between edge, core, and cloud seamlessly"
+    "killer_questions": [
+      "When your data needs to move from on-premises VAST to Azure for cloud burst GPU compute, what is the replication mechanism and latency?",
+      "VAST InsightEngine catalogs data — but does it run inference workloads directly on the storage nodes using GPU acceleration?",
+      "What is the upgrade path when you need ONTAP data services like SnapLock compliance or NVMe-oF block access alongside your NAS workloads?"
     ]
   },
   {
-    "id": "weka",
-    "name": "Weka",
-    "products": ["WekaFS", "Weka Data Platform"],
+    "id": "ddn",
+    "name": "DDN EXAScaler / Lustre",
+    "category": "HPC Parallel File System",
+    "architecture": "Lustre-based parallel file system, scale-out",
+    "protocols": ["Lustre POSIX", "NFS", "S3"],
+    "pricing_model": "CapEx, government and research contracts",
+    "ai_tooling": "AI400X appliances for AI/ML, tight HPC integration",
     "strengths": [
-      "Exceptional parallel file system performance for HPC/AI",
-      "Software-defined, runs on commodity hardware",
-      "Strong GPU-direct storage integration",
-      "Good cloud marketplace presence (AWS, Azure, GCP)"
+      "Dominant in traditional HPC and national lab deployments",
+      "Highest raw throughput numbers for Lustre workloads",
+      "Deep MPI and HPC application ecosystem integration",
+      "Proven at extreme scale in government and research"
     ],
     "weaknesses": [
-      "Niche player focused only on HPC/AI — not general-purpose",
-      "No block storage support",
-      "Limited enterprise data services (no snapshots, clones like ONTAP)",
-      "Small company with limited support resources",
-      "No data lifecycle management or tiering capabilities"
+      "Lustre administration complexity — requires specialist skills",
+      "Limited enterprise data services vs ONTAP",
+      "Weak cloud integration story vs NetApp hyperscaler partnerships",
+      "Limited channel model — primarily direct sales",
+      "Not positioned for enterprise/commercial AI use cases"
     ],
-    "netappAdvantages": [
-      "Enterprise-grade data protection, DR, and compliance features",
-      "Multi-workload support — not just AI, but databases, VDI, apps too",
-      "ONTAP data services: snapshots, clones, replication, encryption",
-      "NetApp AFX with GPUDirect support matches Weka's AI performance",
-      "Established global support and professional services"
+    "afx_advantages": [
+      "AFX uses standard NFS and pNFS — no Lustre specialist required for administration",
+      "ONTAP data services (dedupe, compression, snapshots) vs raw Lustre",
+      "AIDE runs on AFX natively — DDN requires separate compute for AI processing",
+      "NetApp hyperscaler integrations (ANF, FSx, GCNV) vs DDN limited cloud story",
+      "Keystone consumption model vs DDN CapEx-only for commercial accounts"
     ],
-    "battleCardPoints": [
-      "Ask: 'What about your other workloads — databases, VDI, file services?'",
-      "Highlight: NetApp is a platform, not a point solution",
-      "Counter GPU-direct: AFX supports GPU-direct with full data services",
-      "Risk: Weka is a small company — enterprise customers need enterprise support"
+    "killer_questions": [
+      "How many Lustre-certified administrators does your team have, and what is the ops burden compared to ONTAP-managed AFX?",
+      "When your AI workload moves from HPC simulation to cloud-based training, what is the DDN data migration path to AWS or Azure?",
+      "For enterprise governance requirements — audit logging, encryption at rest, RBAC — how does Lustre compare to ONTAP security features?"
     ]
   }
 ]
