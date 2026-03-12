@@ -6,6 +6,9 @@
   .text-balance {
     text-wrap: balance;
   }
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }
 
 @layer base {
@@ -28,7 +31,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --ring: 206 100% 35.5%;
     --radius: 0.5rem;
   }
 
@@ -38,5 +41,68 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Focus rings — netapp-blue for all focusable elements */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-[#0068B5] ring-offset-1;
+  }
+
+  /* Remove focus ring from elements that handle their own */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply ring-offset-0;
+  }
+}
+
+/* Skeleton loading animation */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 0.375rem;
+}
+
+/* Toast notification */
+.toast-enter {
+  animation: toast-in 0.3s ease-out forwards;
+}
+
+.toast-exit {
+  animation: toast-out 0.3s ease-in forwards;
+}
+
+@keyframes toast-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toast-out {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+/* Print styles for PDF export */
+@media print {
+  .no-print,
+  nav,
+  aside,
+  header {
+    display: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 1rem !important;
+  }
+
+  body {
+    background: white !important;
   }
 }
